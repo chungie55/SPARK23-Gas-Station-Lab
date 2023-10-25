@@ -25,7 +25,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 const asset_name = "SOL_TEST";
 const gas_threshold = 0.1;
 const gas_cap = 0.5;
-const gas_station_vault_id = "1";  // Treasury Vault
+const gas_station_vault_id = "1";
 
 // ***************
 // MAIN FUNCTION
@@ -67,13 +67,31 @@ async function gasStationRefuel(vaultId: string) {
 
     // Check if SOL_TEST balance is below set gas threshold
     if (bal_num < gas_threshold) {
+        console.log("Start Refuel to Vault ID " + vaultId);
+        let refuel_amount: number = gas_cap - bal_num;
 
         // Create Transaction to top up SOL_TEST until set gas cap
-        /* ******
-        ** 1. Calculate the amount required to be top up
-        ** 2. Initiate a transaction to top up vault from Treasury vault
-        ** ******
-        */
+        let { status, id } = await fireblocksApiClient.createTransaction({
+            operation: TransactionOperation.TRANSFER,
+            assetId: asset_name,
+            source: {
+                type: PeerType.VAULT_ACCOUNT,
+                id: gas_station_vault_id
+            },
+            destination: {
+                type: PeerType.VAULT_ACCOUNT,
+                id: vaultId
+            },
+            amount: refuel_amount.toString()
+        });
+
+        console.log("Created Refuel Tx ID: ", id);
+        console.log("Tx Status: ", status);
+        
+        if(status == TransactionStatus.FAILED) {
+            let txInfo: TransactionResponse = await fireblocksApiClient.getTransactionById(id);
+            throw "Transaction failed. Substatus: " + txInfo.subStatus;
+        }
     }
 
 };
