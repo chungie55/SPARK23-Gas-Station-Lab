@@ -23,8 +23,8 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 // GAS STATION PARAMETERS
 // ***************
 const asset_name = "SOL_TEST";
-const gas_threshold = 0.1;
-const gas_cap = 0.5;
+const gas_threshold = 0.0001;
+const gas_cap = 0.0005;
 const gas_station_vault_id = "1";  // Treasury Vault
 
 // ***************
@@ -62,11 +62,10 @@ const gas_station_vault_id = "1";  // Treasury Vault
 // GAS STATION REFUEL FUNCTION
 // ***************
 async function gasStationRefuel(vaultId: string) {
-    let sol_balance: AssetResponse = await fireblocksApiClient.getVaultAccountAsset(vaultId, asset_name);
-    let bal_num: number = +sol_balance.total;
+    let sol_balance; // TODO: Get SOL_TEST balance in Vault
 
     // Check if SOL_TEST balance is below set gas threshold
-    if (bal_num < gas_threshold) {
+    if (sol_balance < gas_threshold) {
 
         // Create Transaction to top up SOL_TEST until set gas cap
         /* ******

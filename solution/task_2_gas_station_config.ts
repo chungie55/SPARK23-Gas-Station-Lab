@@ -16,9 +16,14 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 // ***************
 (async function() {
 
+    // Asset ID to be updated
     let assetId = "ETH_TEST5";
+
+    // Default Gas Configurations
     let default_gasthreshold = "0.005";
     let default_gascap = "0.01";
+
+    // New Gas Configurations
     let new_gasthreshold = "0.006";
     let new_gascap = "0.02";
 

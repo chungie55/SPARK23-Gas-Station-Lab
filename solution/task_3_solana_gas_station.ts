@@ -23,8 +23,8 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 // GAS STATION PARAMETERS
 // ***************
 const asset_name = "SOL_TEST";
-const gas_threshold = 0.1;
-const gas_cap = 0.5;
+const gas_threshold = 0.0001;
+const gas_cap = 0.0005;
 const gas_station_vault_id = "1";
 
 // ***************
