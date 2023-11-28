@@ -17,7 +17,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 (async function() {
 
     // Asset ID to be updated
-    let assetId = "ETH_TEST5";
+    let assetId = "ETH_TEST3";
 
     // Default Gas Configurations
     let default_gasthreshold = "0.005";
@@ -25,7 +25,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 
     // New Gas Configurations
     let new_gasthreshold = "0.006";
-    let new_gascap = "0.02";
+    let new_gascap = "0.015";
 
     // Get Gas Station Configuration for a particular asset
     let { configuration } = await fireblocksApiClient.getGasStationInfo(assetId);
@@ -36,7 +36,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 
     // Updating Gas Station Configuration
     /* ******
-    ** 1. Update Gas Threshold and Gas Cap for ETH_TEST5 to the new values above
+    ** 1. Update Gas Threshold and Gas Cap for ETH_TEST3 to the new values above
     ** ******
     */
 
@@ -48,7 +48,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
     console.log("Max Gas Price: " + new_config.maxGasPrice);
 
     // Revert Gas Station Config
-    await fireblocksApiClient.setGasStationConfiguration(default_gasthreshold, default_gascap, undefined, assetId);
+    await fireblocksApiClient.setGasStationConfiguration(default_gasthreshold, default_gascap, "", assetId);
 
 }()).catch(err=> {
     console.log("error", err);
