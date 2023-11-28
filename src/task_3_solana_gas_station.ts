@@ -24,7 +24,7 @@ const fireblocksApiClient = new FireblocksSDK(apiSecret, apiKey);
 // ***************
 const asset_name = "SOL_TEST";
 const gas_threshold = 0.0001;
-const gas_cap = 0.0005;
+const gas_cap = 0.001;
 const gas_station_vault_id = "1";  // Treasury Vault
 
 // ***************
